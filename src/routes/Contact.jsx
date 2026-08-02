@@ -65,7 +65,7 @@ export default function Contact() {
               >
                 <div className="overflow-hidden rounded-[2rem]" style={{ width: '260px' }}>
                   <img
-                    src={asset(asset('/images/alisha-portrait.jpg'))}
+                    src={asset('/images/alisha-portrait.jpg')}
                     alt="Alisha Mahmood"
                     className="w-full aspect-[3/4] object-cover object-top"
                   />

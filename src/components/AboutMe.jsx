@@ -10,7 +10,7 @@ export default function AboutMe() {
         <Reveal className="md:col-span-5">
           <div className="overflow-hidden rounded-4xl bg-surface-container shadow-soft">
             <img
-              src={asset(asset('/images/alisha-portrait.jpg'))}
+              src={asset('/images/alisha-portrait.jpg')}
               alt="Alisha Mahmood"
               loading="lazy"
               className="aspect-[4/5] h-full w-full object-cover"

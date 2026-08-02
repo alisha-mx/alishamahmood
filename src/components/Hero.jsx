@@ -27,7 +27,7 @@ export default function Hero() {
       <video
         ref={videoRef}
         className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-        src={asset(asset('/videos/hero.mp4'))}
+        src={asset('/videos/hero.mp4')}
         autoPlay
         muted
         loop

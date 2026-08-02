@@ -38,7 +38,7 @@ export default function CameraHero() {
     <div className="relative select-none mx-auto w-full max-w-[560px] lg:mx-0 lg:w-[820px] lg:max-w-none lg:shrink-0 transition-transform duration-500 ease-out hover:-translate-y-1.5">
       {/* Camera photograph */}
       <img
-        src={asset(asset('/images/camera-g7x.png'))}
+        src={asset('/images/camera-g7x.png')}
         alt="Canon G7X Mark III"
         draggable={false}
         className="w-full h-auto block"
