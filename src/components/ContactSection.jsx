@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import Reveal from './Reveal.jsx'
+import { asset } from '../utils/asset.js'
 
 export default function ContactSection() {
   return (
@@ -54,7 +55,7 @@ export default function ContactSection() {
             >
               <div className="overflow-hidden rounded-[2.5rem]" style={{ width: '300px' }}>
                 <img
-                  src="/images/alisha-portrait.jpg"
+                  src={asset(asset('/images/alisha-portrait.jpg'))}
                   alt="Alisha Mahmood"
                   className="w-full aspect-[3/4] object-cover object-top"
                 />

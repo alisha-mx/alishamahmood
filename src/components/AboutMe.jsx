@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import Reveal from './Reveal.jsx'
+import { asset } from '../utils/asset.js'
 
 export default function AboutMe() {
   return (
@@ -9,7 +10,7 @@ export default function AboutMe() {
         <Reveal className="md:col-span-5">
           <div className="overflow-hidden rounded-4xl bg-surface-container shadow-soft">
             <img
-              src="/images/alisha-portrait.jpg"
+              src={asset(asset('/images/alisha-portrait.jpg'))}
               alt="Alisha Mahmood"
               loading="lazy"
               className="aspect-[4/5] h-full w-full object-cover"

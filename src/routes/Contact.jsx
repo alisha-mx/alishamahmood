@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Reveal from '../components/Reveal.jsx'
+import { asset } from '../utils/asset.js'
 
 const FORMSPREE_ID = 'xvzjbdvl'
 
@@ -64,7 +65,7 @@ export default function Contact() {
               >
                 <div className="overflow-hidden rounded-[2rem]" style={{ width: '260px' }}>
                   <img
-                    src="/images/alisha-portrait.jpg"
+                    src={asset(asset('/images/alisha-portrait.jpg'))}
                     alt="Alisha Mahmood"
                     className="w-full aspect-[3/4] object-cover object-top"
                   />

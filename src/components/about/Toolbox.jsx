@@ -1,12 +1,13 @@
 import { useState, useRef, useCallback } from 'react'
 import Reveal from '../Reveal.jsx'
+import { asset } from '../../utils/asset.js'
 
 const tools = [
-  { name: 'Canon G7X Mark III',   img: '/images/tools/6536C026AA.png',                   w: 150 },
-  { name: 'DJI Mini Drone',        img: '/images/tools/Drone.png',                        w: 170 },
-  { name: 'DJI Osmo Pocket 4',    img: '/images/tools/OsmoPocket4-4.png',                 w: 130 },
-  { name: 'iPhone',               img: '/images/tools/iphone.png',                        w: 110 },
-  { name: 'MacBook Air',          img: '/images/tools/macbook-air-2025-skyblue-1-800x800.png', w: 180 },
+  { name: 'Canon G7X Mark III',   img: asset('/images/tools/6536C026AA.png'),                   w: 150 },
+  { name: 'DJI Mini Drone',        img: asset('/images/tools/Drone.png'),                        w: 170 },
+  { name: 'DJI Osmo Pocket 4',    img: asset('/images/tools/OsmoPocket4-4.png'),                 w: 130 },
+  { name: 'iPhone',               img: asset('/images/tools/iphone.png'),                        w: 110 },
+  { name: 'MacBook Air',          img: asset('/images/tools/macbook-air-2025-skyblue-1-800x800.png'), w: 180 },
 ]
 
 // Spread tools across the banner initially

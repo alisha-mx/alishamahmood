@@ -1,23 +1,24 @@
 import { useState, useEffect } from 'react'
+import { asset } from '../../utils/asset.js'
 
 // All photos from the website masonry folder + existing masonry images
 const photos = [
-  '/images/camera-photos/WhatsApp Image 2026-06-30 at 13.19.45.jpeg',
-  '/images/camera-photos/WhatsApp Image 2026-06-30 at 13.19.46.jpeg',
-  '/images/camera-photos/WhatsApp Image 2026-06-30 at 13.19.49 (1).jpeg',
-  '/images/camera-photos/WhatsApp Image 2026-06-30 at 13.19.49.jpeg',
-  '/images/camera-photos/WhatsApp Image 2026-06-30 at 13.19.50.jpeg',
-  '/images/camera-photos/WhatsApp Image 2026-06-30 at 13.20.27.jpeg',
-  '/images/camera-photos/WhatsApp Image 2026-06-30 at 13.20.47 (1).jpeg',
-  '/images/camera-photos/WhatsApp Image 2026-06-30 at 13.20.47.jpeg',
-  '/images/camera-photos/masonry-1.jpg',
-  '/images/camera-photos/masonry-2.jpg',
-  '/images/camera-photos/masonry-3.jpg',
-  '/images/camera-photos/masonry-4.jpg',
-  '/images/camera-photos/masonry-5.jpg',
-  '/images/camera-photos/masonry-6.jpg',
-  '/images/camera-photos/masonry-7.jpg',
-  '/images/camera-photos/masonry-8.jpg',
+  asset('/images/camera-photos/WhatsApp Image 2026-06-30 at 13.19.45.jpeg'),
+  asset('/images/camera-photos/WhatsApp Image 2026-06-30 at 13.19.46.jpeg'),
+  asset('/images/camera-photos/WhatsApp Image 2026-06-30 at 13.19.49 (1).jpeg'),
+  asset('/images/camera-photos/WhatsApp Image 2026-06-30 at 13.19.49.jpeg'),
+  asset('/images/camera-photos/WhatsApp Image 2026-06-30 at 13.19.50.jpeg'),
+  asset('/images/camera-photos/WhatsApp Image 2026-06-30 at 13.20.27.jpeg'),
+  asset('/images/camera-photos/WhatsApp Image 2026-06-30 at 13.20.47 (1).jpeg'),
+  asset('/images/camera-photos/WhatsApp Image 2026-06-30 at 13.20.47.jpeg'),
+  asset('/images/camera-photos/masonry-1.jpg'),
+  asset('/images/camera-photos/masonry-2.jpg'),
+  asset('/images/camera-photos/masonry-3.jpg'),
+  asset('/images/camera-photos/masonry-4.jpg'),
+  asset('/images/camera-photos/masonry-5.jpg'),
+  asset('/images/camera-photos/masonry-6.jpg'),
+  asset('/images/camera-photos/masonry-7.jpg'),
+  asset('/images/camera-photos/masonry-8.jpg'),
 ]
 
 // LCD screen position as % of the camera image — tweak if needed
@@ -37,7 +38,7 @@ export default function CameraHero() {
     <div className="relative select-none mx-auto w-full max-w-[560px] lg:mx-0 lg:w-[820px] lg:max-w-none lg:shrink-0 transition-transform duration-500 ease-out hover:-translate-y-1.5">
       {/* Camera photograph */}
       <img
-        src="/images/camera-g7x.png"
+        src={asset(asset('/images/camera-g7x.png'))}
         alt="Canon G7X Mark III"
         draggable={false}
         className="w-full h-auto block"

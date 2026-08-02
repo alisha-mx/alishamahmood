@@ -1,12 +1,13 @@
 import { motion } from 'framer-motion'
 import Reveal from './Reveal.jsx'
+import { asset } from '../utils/asset.js'
 
 const services = [
   {
     n: '01',
     title: 'Content That Feels Real',
     desc: "Whether it's UGC, behind-the-scenes moments or beautifully shot visuals, I love creating content that feels authentic and genuinely enjoyable to watch.",
-    img: '/images/masonry/masonry-5.jpg',
+    img: asset('/images/masonry/masonry-5.jpg'),
     rotate: -1.5,
     hoverRotate: -0.4,
   },
@@ -14,7 +15,7 @@ const services = [
     n: '02',
     title: 'Marketing That Makes Sense',
     desc: 'Marketing has always fascinated me, not just the campaigns, but understanding why people stop scrolling, what grabs attention and what makes a brand memorable.',
-    img: '/images/masonry/masonry-8.jpg',
+    img: asset('/images/masonry/masonry-8.jpg'),
     rotate: 1.2,
     hoverRotate: 0.3,
   },
@@ -22,7 +23,7 @@ const services = [
     n: '03',
     title: 'Creative Direction',
     desc: "I love spotting the little details that bring everything together. From colours and composition to storytelling and aesthetics, it's often the smallest decisions that have the biggest impact.",
-    img: '/images/masonry/masonry-6.jpg',
+    img: asset('/images/masonry/masonry-6.jpg'),
     rotate: -0.8,
     hoverRotate: -0.2,
   },
@@ -30,7 +31,7 @@ const services = [
     n: '04',
     title: 'Creating Just Because',
     desc: "Some of my favourite work isn't for a client at all. I love picking up my camera, exploring somewhere new and creating simply because something caught my eye.",
-    img: '/images/masonry/masonry-1.jpg',
+    img: asset('/images/masonry/masonry-1.jpg'),
     rotate: 1.5,
     hoverRotate: 0.4,
   },

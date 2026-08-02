@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import Reveal from './Reveal.jsx'
+import { asset } from '../utils/asset.js'
 
 export default function Hero() {
   const videoRef = useRef(null)
@@ -26,7 +27,7 @@ export default function Hero() {
       <video
         ref={videoRef}
         className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-        src="/videos/hero.mp4"
+        src={asset(asset('/videos/hero.mp4'))}
         autoPlay
         muted
         loop

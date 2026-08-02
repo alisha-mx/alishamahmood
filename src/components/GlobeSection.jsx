@@ -1,26 +1,27 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import * as THREE from 'three'
 import Reveal from './Reveal.jsx'
+import { asset } from '../utils/asset.js'
 
 const places = [
-  { name: 'Sharm El Sheikh', lat: 27.9158, lng: 34.3300, img: '/images/places/sharm-el-sheikh.jpg' },
-  { name: 'Cairo',           lat: 30.0444, lng: 31.2357, img: '/images/places/cairo.jpg' },
-  { name: 'Budapest',        lat: 47.4979, lng: 19.0402, img: '/images/places/budapest.jpg' },
-  { name: 'Brussels',        lat: 50.8503, lng:  4.3517, img: '/images/places/brussels.jpg' },
-  { name: 'Limoges',         lat: 45.8336, lng:  1.2611, img: '/images/places/limoges.jpg' },
-  { name: 'Bordeaux',        lat: 44.8378, lng: -0.5792, img: '/images/places/bordeaux.jpg' },
-  { name: 'Amsterdam',       lat: 52.3676, lng:  4.9041, img: '/images/places/amsterdam.jpg' },
-  { name: 'Antalya',         lat: 36.8969, lng: 30.7133, img: '/images/places/antalya.jpg' },
-  { name: 'Rhodes',          lat: 36.4341, lng: 28.2176, img: '/images/places/rhodes.jpg' },
-  { name: 'Corfu',           lat: 39.6243, lng: 19.9217, img: '/images/places/corfu.jpg' },
-  { name: 'Istanbul',        lat: 41.0082, lng: 28.9784, img: '/images/places/istanbul.jpg' },
-  { name: 'Verona',          lat: 45.4384, lng: 10.9916, img: '/images/places/verona.jpg' },
-  { name: 'Venice',          lat: 45.4408, lng: 12.3155, img: '/images/places/venice.jpg' },
-  { name: 'Milan',           lat: 45.4654, lng:  9.1859, img: '/images/places/milan.jpg' },
-  { name: 'Lake Garda',      lat: 45.6389, lng: 10.6680, img: '/images/places/lake-garda.jpg' },
-  { name: 'Tunisia',         lat: 36.8188, lng: 10.1658, img: '/images/places/tunisia.jpg' },
-  { name: 'Dubrovnik',       lat: 42.6507, lng: 18.0944, img: '/images/places/dubrovnik.jpg' },
-  { name: 'Rome',            lat: 41.9028, lng: 12.4964, img: '/images/places/rome.jpg' },
+  { name: 'Sharm El Sheikh', lat: 27.9158, lng: 34.3300, img: asset('/images/places/sharm-el-sheikh.jpg') },
+  { name: 'Cairo',           lat: 30.0444, lng: 31.2357, img: asset('/images/places/cairo.jpg') },
+  { name: 'Budapest',        lat: 47.4979, lng: 19.0402, img: asset('/images/places/budapest.jpg') },
+  { name: 'Brussels',        lat: 50.8503, lng:  4.3517, img: asset('/images/places/brussels.jpg') },
+  { name: 'Limoges',         lat: 45.8336, lng:  1.2611, img: asset('/images/places/limoges.jpg') },
+  { name: 'Bordeaux',        lat: 44.8378, lng: -0.5792, img: asset('/images/places/bordeaux.jpg') },
+  { name: 'Amsterdam',       lat: 52.3676, lng:  4.9041, img: asset('/images/places/amsterdam.jpg') },
+  { name: 'Antalya',         lat: 36.8969, lng: 30.7133, img: asset('/images/places/antalya.jpg') },
+  { name: 'Rhodes',          lat: 36.4341, lng: 28.2176, img: asset('/images/places/rhodes.jpg') },
+  { name: 'Corfu',           lat: 39.6243, lng: 19.9217, img: asset('/images/places/corfu.jpg') },
+  { name: 'Istanbul',        lat: 41.0082, lng: 28.9784, img: asset('/images/places/istanbul.jpg') },
+  { name: 'Verona',          lat: 45.4384, lng: 10.9916, img: asset('/images/places/verona.jpg') },
+  { name: 'Venice',          lat: 45.4408, lng: 12.3155, img: asset('/images/places/venice.jpg') },
+  { name: 'Milan',           lat: 45.4654, lng:  9.1859, img: asset('/images/places/milan.jpg') },
+  { name: 'Lake Garda',      lat: 45.6389, lng: 10.6680, img: asset('/images/places/lake-garda.jpg') },
+  { name: 'Tunisia',         lat: 36.8188, lng: 10.1658, img: asset('/images/places/tunisia.jpg') },
+  { name: 'Dubrovnik',       lat: 42.6507, lng: 18.0944, img: asset('/images/places/dubrovnik.jpg') },
+  { name: 'Rome',            lat: 41.9028, lng: 12.4964, img: asset('/images/places/rome.jpg') },
 ]
 
 const RINGS = places.map((p, i) => ({
