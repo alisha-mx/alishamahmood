@@ -28,9 +28,9 @@ export default function Footer() {
             <p className="mt-4 text-body-md text-on-surface">
               Thanks for stopping by on the coolest digital diary!
             </p>
-            <a href="/contact" className="btn-primary mt-5">
+            <Link to="/contact" className="btn-primary mt-5">
               Let's connect →
-            </a>
+            </Link>
           </div>
 
           <div className="flex items-center gap-6">
