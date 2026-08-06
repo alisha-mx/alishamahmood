@@ -90,7 +90,8 @@ const onGlobeReady = useCallback(() => {
     ctrl.autoRotateSpeed = 0.5
     ctrl.enableDamping   = true
     ctrl.dampingFactor   = 0.08
-    ctrl.enableZoom      = false
+    // On touch devices enable zoom always (pinch-to-zoom); desktop trackMouse controls it
+    ctrl.enableZoom      = 'ontouchstart' in window
     g.pointOfView({ lat: 38, lng: 18, altitude: 2.0 }, 1200)
   }, [])
 
@@ -163,14 +164,14 @@ const onGlobeReady = useCallback(() => {
             <div
               ref={containerRef}
               className="relative w-full overflow-hidden"
-              style={{ height: `${dims.h}px`, cursor: 'grab' }}
+              style={{ height: `${dims.h}px`, cursor: 'grab', touchAction: 'none' }}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
               onMouseMove={trackMouse}
               onMouseDown={handleDragStart}
               onMouseUp={handleDragEnd}
-              onTouchStart={(e) => { handleMouseEnter(); handleDragStart(); }}
-              onTouchEnd={(e) => { handleMouseLeave(); handleDragEnd(); }}
+              onTouchStart={handleDragStart}
+              onTouchEnd={handleMouseLeave}
             >
               {Globe ? (
                 <div className="absolute left-1/2 top-0 -translate-x-1/2">

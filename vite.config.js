@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-  base: '/alishamahmood/',
+  base: '/',
   plugins: [react()],
   optimizeDeps: {
     include: ['react-globe.gl', 'three'],

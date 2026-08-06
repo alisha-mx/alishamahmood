@@ -184,7 +184,7 @@ export default function MoreWork() {
 
           {/* Filter pills — horizontally scrollable on mobile */}
           <Reveal delay={0.05}>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               {FILTERS.map((f) => (
                 <button
                   key={f.value}

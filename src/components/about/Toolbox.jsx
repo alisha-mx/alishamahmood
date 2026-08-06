@@ -12,7 +12,7 @@ const tools = [
   { name: 'Canva',               img: asset('/images/tools/canva-logo.png'),                         w: 190, radius: '25%' },
 ]
 
-const BOX_H  = 380
+const BOX_H_DEFAULT = 380
 const MAX_SPD = 1.4
 
 // Varied velocities — no two tools moving in exactly the same direction
@@ -33,6 +33,8 @@ export default function Toolbox() {
   const maxZRef      = useRef(tools.length)
   const rafRef       = useRef(null)
   const dragRef      = useRef(null)
+  const scaledWRef   = useRef(tools.map(t => t.w))
+  const boxHRef      = useRef(BOX_H_DEFAULT)
   // positions are initialised in useEffect once we know container width
   const physRef      = useRef(null)
 
@@ -41,8 +43,17 @@ export default function Toolbox() {
     if (!container) return
     const W = container.offsetWidth
 
+    // Scale items down on narrow screens; keep box height fixed so no DOM height thrash
+    const sf = W < 480 ? 0.52 : W < 640 ? 0.72 : 1
+    boxHRef.current = BOX_H_DEFAULT
+    tools.forEach((t, i) => {
+      scaledWRef.current[i] = Math.round(t.w * sf)
+      const el = itemRefs.current[i]
+      if (el) el.style.width = `${scaledWRef.current[i]}px`
+    })
+
     // Spread tools across two rows, guaranteed in-bounds for any container width
-    const rowY = [20, 220]
+    const rowY = [20, W < 480 ? 160 : 220]
     const xSlots = [
       [0.04, 0.22, 0.42, 0.62, 0.80],  // top row  (5 tools)
       [0.10, 0.55],                      // bottom row (2 tools)
@@ -52,7 +63,7 @@ export default function Toolbox() {
       const row   = idx < 5 ? 0 : 1
       const col   = idx < 5 ? idx : idx - 5
       const xPct  = xSlots[row][col]
-      const x     = Math.min(xPct * W, W - tools[ti].w - 2)
+      const x     = Math.min(xPct * W, W - scaledWRef.current[ti] - 2)
       return { x, y: rowY[row], ...VELOCITIES[ti], dragging: false }
     })
 
@@ -81,12 +92,12 @@ export default function Toolbox() {
       // 2. Wall bounce
       physRef.current.forEach((s, i) => {
         if (s.dragging) return
-        const tw = tools[i].w
+        const tw = scaledWRef.current[i]
         const th = heightsRef.current[i]
-        if (s.x < 0)              { s.x = 0;          s.vx =  Math.abs(s.vx) }
-        if (s.x + tw > CW)        { s.x = CW - tw;    s.vx = -Math.abs(s.vx) }
-        if (s.y < 0)              { s.y = 0;          s.vy =  Math.abs(s.vy) }
-        if (s.y + th > BOX_H)     { s.y = BOX_H - th; s.vy = -Math.abs(s.vy) }
+        if (s.x < 0)                        { s.x = 0;                       s.vx =  Math.abs(s.vx) }
+        if (s.x + tw > CW)                  { s.x = CW - tw;                 s.vx = -Math.abs(s.vx) }
+        if (s.y < 0)                        { s.y = 0;                       s.vy =  Math.abs(s.vy) }
+        if (s.y + th > boxHRef.current)     { s.y = boxHRef.current - th;    s.vy = -Math.abs(s.vy) }
       })
 
       // 3. Tool-tool collision — 3 passes to resolve cascading overlaps
@@ -98,8 +109,8 @@ export default function Toolbox() {
 
             const a  = physRef.current[i]
             const b  = physRef.current[j]
-            const aw = tools[i].w,  ah = heightsRef.current[i]
-            const bw = tools[j].w,  bh = heightsRef.current[j]
+            const aw = scaledWRef.current[i],  ah = heightsRef.current[i]
+            const bw = scaledWRef.current[j],  bh = heightsRef.current[j]
 
             const ox = Math.min(a.x + aw, b.x + bw) - Math.max(a.x, b.x)
             const oy = Math.min(a.y + ah, b.y + bh) - Math.max(a.y, b.y)
@@ -176,16 +187,40 @@ export default function Toolbox() {
     if (!container) return
 
     const CW   = container.offsetWidth
-    const tw   = tools[index].w
+    const tw   = scaledWRef.current[index]
     const th   = heightsRef.current[index]
-    const newX = Math.max(0, Math.min(CW - tw,      startPx + (e.clientX - startMx)))
-    const newY = Math.max(0, Math.min(BOX_H - th,   startPy + (e.clientY - startMy)))
+    const newX = Math.max(0, Math.min(CW - tw,               startPx + (e.clientX - startMx)))
+    const newY = Math.max(0, Math.min(boxHRef.current - th,   startPy + (e.clientY - startMy)))
 
     const s = physRef.current[index]
     s.x = newX; s.y = newY
     const el = itemRefs.current[index]
     if (el) { el.style.left = `${newX}px`; el.style.top = `${newY}px` }
   }, [])
+
+  const onTouchStartItem = useCallback((e, idx) => {
+    e.preventDefault()
+    if (!physRef.current) return
+    const touch = e.touches[0]
+    const s = physRef.current[idx]
+    s.dragging = true
+    dragRef.current = {
+      index:   idx,
+      startMx: touch.clientX,
+      startMy: touch.clientY,
+      startPx: s.x,
+      startPy: s.y,
+    }
+    const el = itemRefs.current[idx]
+    if (el) el.style.zIndex = ++maxZRef.current
+  }, [])
+
+  const onTouchMoveContainer = useCallback((e) => {
+    if (!dragRef.current) return
+    e.preventDefault()
+    const touch = e.touches[0]
+    onMouseMove({ clientX: touch.clientX, clientY: touch.clientY })
+  }, [onMouseMove])
 
   const onRelease = useCallback(() => {
     if (!dragRef.current || !physRef.current) return
@@ -218,10 +253,12 @@ export default function Toolbox() {
         <div
           ref={containerRef}
           className="relative w-full rounded-3xl overflow-hidden select-none"
-          style={{ height: BOX_H, background: '#F5F0EA', cursor: 'default' }}
+          style={{ height: `${BOX_H_DEFAULT}px`, background: '#F5F0EA', cursor: 'default', touchAction: 'none' }}
           onMouseMove={onMouseMove}
           onMouseUp={onRelease}
           onMouseLeave={onRelease}
+          onTouchMove={onTouchMoveContainer}
+          onTouchEnd={onRelease}
         >
           {tools.map((tool, i) => (
             <div
@@ -237,6 +274,7 @@ export default function Toolbox() {
                 userSelect: 'none',
               }}
               onMouseDown={(e) => onMouseDown(e, i)}
+              onTouchStart={(e) => onTouchStartItem(e, i)}
             >
               <img
                 src={tool.img}
