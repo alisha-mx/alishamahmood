@@ -225,7 +225,7 @@ const onGlobeReady = useCallback(() => {
                 >
                   <div className="flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 shadow-soft backdrop-blur-sm border-2 border-buttermilk">
                     <span className="text-base">✋</span>
-                    <span className="font-display text-sm italic text-on-surface">drag me!</span>
+                    <span className="font-display text-sm italic text-on-surface">drag & zoom!</span>
                   </div>
                 </motion.div>
               )}
