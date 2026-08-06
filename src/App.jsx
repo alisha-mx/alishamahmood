@@ -6,6 +6,7 @@ import CurrentlyWidget from './components/CurrentlyWidget.jsx'
 import Home from './routes/Home.jsx'
 import Services from './routes/Services.jsx'
 import Portfolio from './routes/Portfolio.jsx'
+import CaseStudy from './routes/CaseStudy.jsx'
 import About from './routes/About.jsx'
 import Contact from './routes/Contact.jsx'
 
@@ -27,6 +28,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<Services />} />
           <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/portfolio/:slug" element={<CaseStudy />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>

@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Reveal from '../components/Reveal.jsx'
 import { asset } from '../utils/asset.js'
 
-const FORMSPREE_ID = 'xvzjbdvl'
+const FORMSPREE_ID = 'xaewyprl'
 
 const queries = [
   'Work Together',
@@ -14,7 +14,7 @@ const queries = [
 ]
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: '', query: '', message: '' })
+  const [form, setForm] = useState({ name: '', email: '', query: '', message: '' })
   const [status, setStatus] = useState('idle') // idle | submitting | success | error
 
   const set = (field) => (e) => setForm((f) => ({ ...f, [field]: e.target.value }))
@@ -92,10 +92,10 @@ export default function Contact() {
                     </div>
                     <div>
                       <h2 className="font-display text-headline-md text-on-surface">Message sent!</h2>
-                      <p className="mt-2 text-body-md text-on-surface/55">Thanks for reaching out — I'll get back to you soon.</p>
+                      <p className="mt-2 text-body-md text-on-surface/55">Thanks for reaching out! I'll get back to you soon.</p>
                     </div>
                     <button
-                      onClick={() => { setStatus('idle'); setForm({ name: '', query: '', message: '' }) }}
+                      onClick={() => { setStatus('idle'); setForm({ name: '', email: '', query: '', message: '' }) }}
                       className="text-sm text-taupe underline underline-offset-4 transition-colors hover:text-on-surface"
                     >
                       Send another message
@@ -111,7 +111,7 @@ export default function Contact() {
                   >
                     <Reveal delay={0.1}>
                       <div className="flex flex-col gap-1.5">
-                        <label className="text-label-caps uppercase tracking-[0.1em] text-secondary">Name</label>
+                        <label className="text-label-caps uppercase tracking-[0.1em] text-secondary">Name *</label>
                         <input
                           type="text"
                           required
@@ -122,9 +122,22 @@ export default function Contact() {
                         />
                       </div>
                     </Reveal>
+                    <Reveal delay={0.12}>
+                      <div className="flex flex-col gap-1.5">
+                        <label className="text-label-caps uppercase tracking-[0.1em] text-secondary">Email *</label>
+                        <input
+                          type="email"
+                          required
+                          placeholder="your@email.com"
+                          value={form.email}
+                          onChange={set('email')}
+                          className="w-full rounded-xl border border-outline-variant bg-surface-lowest px-4 py-3 text-sm text-on-surface placeholder-taupe/60 outline-none transition-colors duration-200 focus:border-taupe"
+                        />
+                      </div>
+                    </Reveal>
                     <Reveal delay={0.13}>
                       <div className="flex flex-col gap-1.5">
-                        <label className="text-label-caps uppercase tracking-[0.1em] text-secondary">What's this about?</label>
+                        <label className="text-label-caps uppercase tracking-[0.1em] text-secondary">What's this about? *</label>
                         <select
                           required
                           value={form.query}
@@ -138,7 +151,7 @@ export default function Contact() {
                     </Reveal>
                     <Reveal delay={0.16}>
                       <div className="flex flex-col gap-1.5">
-                        <label className="text-label-caps uppercase tracking-[0.1em] text-secondary">Message</label>
+                        <label className="text-label-caps uppercase tracking-[0.1em] text-secondary">Message *</label>
                         <textarea
                           required
                           rows={4}
@@ -150,7 +163,7 @@ export default function Contact() {
                       </div>
                     </Reveal>
                     {status === 'error' && (
-                      <p className="text-sm text-red-500">Something went wrong — please try emailing me directly at alisha.mahmood012@gmail.com</p>
+                      <p className="text-sm text-red-500">Something went wrong. Please try emailing me directly at alisha.mahmood012@gmail.com</p>
                     )}
                     <Reveal delay={0.19}>
                       <button

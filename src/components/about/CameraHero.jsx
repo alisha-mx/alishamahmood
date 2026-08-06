@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { asset } from '../../utils/asset.js'
 
 // All photos from the website masonry folder + existing masonry images
@@ -26,11 +26,19 @@ const LCD = { left: '22%', top: '35%', width: '43%', height: '35%' }
 
 export default function CameraHero() {
   const [idx, setIdx] = useState(0)
+  const loadedRef = useRef(new Set())
 
-  // Plain CSS opacity flicker — avoids Framer Motion/WAAPI, which can freeze
-  // in iframe/background contexts and get stuck mid-transition.
   useEffect(() => {
-    const id = setInterval(() => setIdx(i => (i + 1) % photos.length), 1400)
+    const id = setInterval(() => {
+      setIdx(prev => {
+        // Only advance to an image that has finished loading — no blank gaps
+        for (let offset = 1; offset <= photos.length; offset++) {
+          const next = (prev + offset) % photos.length
+          if (loadedRef.current.has(next)) return next
+        }
+        return prev
+      })
+    }, 700)
     return () => clearInterval(id)
   }, [])
 
@@ -61,8 +69,9 @@ export default function CameraHero() {
             src={src}
             alt=""
             draggable={false}
+            onLoad={() => loadedRef.current.add(i)}
             className="absolute inset-0 w-full h-full object-cover"
-            style={{ opacity: i === idx ? 1 : 0, transition: 'opacity 0.12s linear' }}
+            style={{ opacity: i === idx ? 1 : 0, transition: 'opacity 0.08s linear' }}
           />
         ))}
 

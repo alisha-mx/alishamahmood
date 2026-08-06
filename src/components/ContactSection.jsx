@@ -26,7 +26,7 @@ export default function ContactSection() {
             </Reveal>
             <Reveal delay={0.1}>
               <p className="mt-7 max-w-lg text-body-lg leading-relaxed text-white/55">
-                Open to collaborations, creative campaigns, content partnerships, exciting new roles — or simply connecting with like-minded people. Drop me a message and let's make something happen.
+                Open to collaborations, creative campaigns, content partnerships, exciting new roles, or simply connecting with like-minded people. Drop me a message and let's make something happen.
               </p>
             </Reveal>
             <Reveal delay={0.15}>

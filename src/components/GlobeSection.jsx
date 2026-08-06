@@ -1,27 +1,28 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import * as THREE from 'three'
 import Reveal from './Reveal.jsx'
 import { asset } from '../utils/asset.js'
 
 const places = [
-  { name: 'Sharm El Sheikh', lat: 27.9158, lng: 34.3300, img: asset('/images/places/sharm-el-sheikh.jpg') },
-  { name: 'Cairo',           lat: 30.0444, lng: 31.2357, img: asset('/images/places/cairo.jpg') },
-  { name: 'Budapest',        lat: 47.4979, lng: 19.0402, img: asset('/images/places/budapest.jpg') },
-  { name: 'Brussels',        lat: 50.8503, lng:  4.3517, img: asset('/images/places/brussels.jpg') },
-  { name: 'Limoges',         lat: 45.8336, lng:  1.2611, img: asset('/images/places/limoges.jpg') },
-  { name: 'Bordeaux',        lat: 44.8378, lng: -0.5792, img: asset('/images/places/bordeaux.jpg') },
-  { name: 'Amsterdam',       lat: 52.3676, lng:  4.9041, img: asset('/images/places/amsterdam.jpg') },
-  { name: 'Antalya',         lat: 36.8969, lng: 30.7133, img: asset('/images/places/antalya.jpg') },
-  { name: 'Rhodes',          lat: 36.4341, lng: 28.2176, img: asset('/images/places/rhodes.jpg') },
-  { name: 'Corfu',           lat: 39.6243, lng: 19.9217, img: asset('/images/places/corfu.jpg') },
-  { name: 'Istanbul',        lat: 41.0082, lng: 28.9784, img: asset('/images/places/istanbul.jpg') },
-  { name: 'Verona',          lat: 45.4384, lng: 10.9916, img: asset('/images/places/verona.jpg') },
-  { name: 'Venice',          lat: 45.4408, lng: 12.3155, img: asset('/images/places/venice.jpg') },
-  { name: 'Milan',           lat: 45.4654, lng:  9.1859, img: asset('/images/places/milan.jpg') },
-  { name: 'Lake Garda',      lat: 45.6389, lng: 10.6680, img: asset('/images/places/lake-garda.jpg') },
-  { name: 'Tunisia',         lat: 36.8188, lng: 10.1658, img: asset('/images/places/tunisia.jpg') },
-  { name: 'Dubrovnik',       lat: 42.6507, lng: 18.0944, img: asset('/images/places/dubrovnik.jpg') },
-  { name: 'Rome',            lat: 41.9028, lng: 12.4964, img: asset('/images/places/rome.jpg') },
+  { name: 'Sharm El Sheikh', lat: 27.9158, lng: 34.3300, img: asset('/images/places/sharm.jpeg') },
+  { name: 'Cairo',           lat: 30.0444, lng: 31.2357, img: asset('/images/places/cairo.jpeg') },
+  { name: 'Budapest',        lat: 47.4979, lng: 19.0402, img: asset('/images/places/budapest.jpeg') },
+  { name: 'Brussels',        lat: 50.8503, lng:  4.3517, img: asset('/images/places/brussels.jpeg') },
+  { name: 'Limoges',         lat: 45.8336, lng:  1.2611, img: asset('/images/places/limoges.jpeg') },
+  { name: 'Bordeaux',        lat: 44.8378, lng: -0.5792, img: asset('/images/places/bordeaux.jpeg') },
+  { name: 'Amsterdam',       lat: 52.3676, lng:  4.9041, img: asset('/images/places/amsterdam.jpeg') },
+  { name: 'Antalya',         lat: 36.8969, lng: 30.7133, img: asset('/images/places/antalya.jpeg') },
+  { name: 'Rhodes',          lat: 36.4341, lng: 28.2176, img: asset('/images/places/rhodes.jpeg') },
+  { name: 'Corfu',           lat: 39.6243, lng: 19.9217, img: asset('/images/places/corfu.jpeg') },
+  { name: 'Istanbul',        lat: 41.0082, lng: 28.9784, img: asset('/images/places/istanbul.jpeg') },
+  { name: 'Verona',          lat: 45.4384, lng: 10.9916, img: asset('/images/places/verona.jpeg') },
+  { name: 'Venice',          lat: 45.4408, lng: 12.3155, img: asset('/images/places/venice.jpeg') },
+  { name: 'Milan',           lat: 45.4654, lng:  9.1859, img: asset('/images/places/milan.jpeg') },
+  { name: 'Lake Garda',      lat: 45.6389, lng: 10.6680, img: asset('/images/places/lake-garda.jpeg') },
+  { name: 'Tunisia',         lat: 36.8188, lng: 10.1658, img: asset('/images/places/tunisia.jpeg') },
+  { name: 'Dubrovnik',       lat: 42.6507, lng: 18.0944, img: asset('/images/places/dubrovnik.jpeg') },
+  { name: 'Rome',            lat: 41.9028, lng: 12.4964, img: asset('/images/places/rome.jpeg') },
 ]
 
 const RINGS = places.map((p, i) => ({
@@ -38,12 +39,13 @@ export default function GlobeSection() {
   const containerRef = useRef(null)
   const rotateTimer  = useRef(null)
 
-  const [Globe,    setGlobe]    = useState(null)
-  const [lands,    setLands]    = useState([])
-  const [dims,     setDims]     = useState({ w: 500, h: 420 })
-  const [hovered,  setHovered]  = useState(null)
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
-  const [imgError, setImgError] = useState(false)
+  const [Globe,        setGlobe]        = useState(null)
+  const [lands,        setLands]        = useState([])
+  const [dims,         setDims]         = useState({ w: 500, h: 420 })
+  const [hovered,      setHovered]      = useState(null)
+  const [mousePos,     setMousePos]     = useState({ x: 0, y: 0 })
+  const [failedImgs,   setFailedImgs]   = useState(() => new Set())
+  const [hasInteracted, setHasInteracted] = useState(false)
 
   const oceanMaterial = useMemo(() => new THREE.MeshPhongMaterial({
     color:             new THREE.Color('#A8D8EA'),
@@ -73,10 +75,14 @@ export default function GlobeSection() {
     return () => ro.disconnect()
   }, [])
 
-  // Clear image error state when the hovered place changes
-  useEffect(() => { setImgError(false) }, [hovered])
+  // Preload all place images so hover cards appear instantly
+  useEffect(() => {
+    places.forEach(p => {
+      if (p.img) { const i = new Image(); i.src = p.img }
+    })
+  }, [])
 
-  const onGlobeReady = useCallback(() => {
+const onGlobeReady = useCallback(() => {
     const g = globeEl.current
     if (!g) return
     const ctrl = g.controls()
@@ -99,14 +105,19 @@ export default function GlobeSection() {
     const g = globeEl.current
     if (!g) return
     const ctrl = g.controls()
-    if (ctrl) { ctrl.autoRotate = false; ctrl.enableZoom = false }
-    // Animate back to default zoom, preserving current rotation
+    if (ctrl) { ctrl.autoRotate = true; ctrl.enableZoom = false }
     const pov = g.pointOfView()
     g.pointOfView({ lat: pov.lat, lng: pov.lng, altitude: 2.0 }, 800)
-    rotateTimer.current = setTimeout(() => {
-      const ctrl2 = globeEl.current?.controls()
-      if (ctrl2) ctrl2.autoRotate = true
-    }, 2000)
+  }, [])
+
+  const handleDragStart = useCallback(() => {
+    setHasInteracted(true)
+    const ctrl = globeEl.current?.controls()
+    if (ctrl) ctrl.autoRotate = false
+  }, [])
+
+  const handleDragEnd = useCallback(() => {
+    // autoRotate re-enabled by handleMouseLeave when the cursor leaves the globe
   }, [])
 
   const trackMouse = useCallback((e) => {
@@ -156,8 +167,10 @@ export default function GlobeSection() {
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
               onMouseMove={trackMouse}
-              onTouchStart={handleMouseEnter}
-              onTouchEnd={handleMouseLeave}
+              onMouseDown={handleDragStart}
+              onMouseUp={handleDragEnd}
+              onTouchStart={(e) => { handleMouseEnter(); handleDragStart(); }}
+              onTouchEnd={(e) => { handleMouseLeave(); handleDragEnd(); }}
             >
               {Globe ? (
                 <div className="absolute left-1/2 top-0 -translate-x-1/2">
@@ -196,7 +209,26 @@ export default function GlobeSection() {
                   <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-on-surface/20" />
                 </div>
               )}
+
             </div>
+
+            {/* Interact badge — outside overflow:hidden so the canvas can't cover it */}
+            <AnimatePresence>
+              {!hasInteracted && Globe && (
+                <motion.div
+                  className="pointer-events-none absolute bottom-6 left-1/2 z-20 -translate-x-1/2"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: [0, -5, 0] }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ duration: 0.5, y: { duration: 2, repeat: Infinity, ease: 'easeInOut' } }}
+                >
+                  <div className="flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 shadow-soft backdrop-blur-sm border-2 border-buttermilk">
+                    <span className="text-base">✋</span>
+                    <span className="font-display text-sm italic text-on-surface">drag me!</span>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {/* Hover card — outside overflow:hidden so it's never clipped */}
             {hovered && (
@@ -207,16 +239,14 @@ export default function GlobeSection() {
                 <div className="overflow-hidden rounded-2xl bg-white shadow-accent">
                   {/* Image */}
                   <div className="relative h-28 w-full overflow-hidden bg-surface-container">
-                    {!imgError && (
+                    {hovered.img && !failedImgs.has(hovered.name) ? (
                       <img
-                        key={hovered.name}
                         src={hovered.img}
                         alt={hovered.name}
-                        onError={() => setImgError(true)}
+                        onError={() => setFailedImgs(prev => new Set([...prev, hovered.name]))}
                         className="h-full w-full object-cover"
                       />
-                    )}
-                    {imgError && (
+                    ) : (
                       <div className="flex h-full w-full items-center justify-center bg-surface-container-high">
                         <span className="font-display text-xs italic text-taupe">No photo yet</span>
                       </div>

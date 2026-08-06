@@ -1,7 +1,7 @@
-export function InstagramIcon({ className = '' }) {
+export function EmailIcon({ className = '' }) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>
-      <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2m-.2 2C5.6 4 4 5.6 4 7.6v8.8C4 18.4 5.6 20 7.6 20h8.8c2 0 3.6-1.6 3.6-3.6V7.6C20 5.6 18.4 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5M12 7a5 5 0 110 10A5 5 0 0112 7m0 2a3 3 0 100 6 3 3 0 000-6z" />
+      <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z" />
     </svg>
   )
 }
@@ -23,7 +23,7 @@ export function LinkedInIcon({ className = '' }) {
 }
 
 export const socials = [
-  { label: 'Instagram', href: '#', Icon: InstagramIcon },
-  { label: 'TikTok', href: '#', Icon: TikTokIcon },
-  { label: 'LinkedIn', href: '#', Icon: LinkedInIcon },
+  { label: 'Email', href: '/contact', Icon: EmailIcon, internal: true, iconClass: 'h-[22px] w-[22px]' },
+  { label: 'TikTok', href: 'https://www.tiktok.com/@alisham._?_r=1&_t=ZN-98eh33Frqfm', Icon: TikTokIcon },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/alisha12/', Icon: LinkedInIcon },
 ]

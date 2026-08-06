@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import Logo from './Logo.jsx'
 import { socials } from './SocialIcons.jsx'
 
@@ -27,20 +28,34 @@ export default function Footer() {
             <p className="mt-4 text-body-md text-on-surface">
               Thanks for stopping by on the coolest digital diary!
             </p>
+            <a href="/contact" className="btn-primary mt-5">
+              Let's connect →
+            </a>
           </div>
 
           <div className="flex items-center gap-6">
-            {socials.map(({ label, href, Icon }) => (
-              <a
-                key={label}
-                href={href}
-                aria-label={label}
-                target="_blank"
-                rel="noreferrer"
-                className="text-on-surface transition-opacity duration-300 hover:opacity-50"
-              >
-                <Icon className="h-5 w-5" />
-              </a>
+            {socials.map(({ label, href, Icon, internal, iconClass }) => (
+              internal ? (
+                <Link
+                  key={label}
+                  to={href}
+                  aria-label={label}
+                  className="text-on-surface transition-opacity duration-300 hover:opacity-50"
+                >
+                  <Icon className={iconClass ?? 'h-5 w-5'} />
+                </Link>
+              ) : (
+                <a
+                  key={label}
+                  href={href}
+                  aria-label={label}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-on-surface transition-opacity duration-300 hover:opacity-50"
+                >
+                  <Icon className={iconClass ?? 'h-5 w-5'} />
+                </a>
+              )
             ))}
           </div>
         </div>
