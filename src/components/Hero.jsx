@@ -15,12 +15,23 @@ export default function Hero() {
       if (p && typeof p.catch === 'function') p.catch(() => {})
     }
     const onReady = () => { tryPlay(); setReady(true) }
+
+    // If the video is already buffered (e.g. from cache), fire immediately
+    if (v.readyState >= 2) {
+      onReady()
+    } else {
+      v.addEventListener('loadeddata', onReady)
+      v.addEventListener('canplay',    onReady)
+    }
     tryPlay()
-    v.addEventListener('loadeddata', onReady)
-    v.addEventListener('canplay',    onReady)
+
+    // Safety fallback — never leave shimmer blocking the video
+    const fallback = setTimeout(() => setReady(true), 4000)
+
     return () => {
       v.removeEventListener('loadeddata', onReady)
       v.removeEventListener('canplay',    onReady)
+      clearTimeout(fallback)
     }
   }, [])
 
