@@ -5,7 +5,6 @@ import Reveal from '../Reveal.jsx'
 import { asset } from '../../utils/asset.js'
 
 const FILTERS = [
-  { label: 'All', value: 'all' },
   { label: 'Professional Work', value: 'professional' },
   { label: 'Content Creation', value: 'content' },
   { label: 'Freelance', value: 'freelance' },
@@ -188,7 +187,7 @@ export default function MoreWork() {
               {FILTERS.map((f) => (
                 <button
                   key={f.value}
-                  onClick={() => setActive(f.value)}
+                  onClick={() => setActive(active === f.value ? 'all' : f.value)}
                   className={[
                     'rounded-full px-4 py-2 text-label-caps uppercase tracking-widest transition-all duration-300 ease-smooth',
                     'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-surface',
