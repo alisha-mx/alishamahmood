@@ -1,9 +1,10 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Reveal from './Reveal.jsx'
 import { asset } from '../utils/asset.js'
 
 export default function Hero() {
-  const videoRef = useRef(null)
+  const videoRef  = useRef(null)
+  const [ready, setReady] = useState(false)
 
   useEffect(() => {
     const v = videoRef.current
@@ -13,17 +14,34 @@ export default function Hero() {
       const p = v.play()
       if (p && typeof p.catch === 'function') p.catch(() => {})
     }
+    const onReady = () => { tryPlay(); setReady(true) }
     tryPlay()
-    v.addEventListener('loadeddata', tryPlay)
-    v.addEventListener('canplay', tryPlay)
+    v.addEventListener('loadeddata', onReady)
+    v.addEventListener('canplay',    onReady)
     return () => {
-      v.removeEventListener('loadeddata', tryPlay)
-      v.removeEventListener('canplay', tryPlay)
+      v.removeEventListener('loadeddata', onReady)
+      v.removeEventListener('canplay',    onReady)
     }
   }, [])
 
   return (
     <section className="relative h-screen min-h-[620px] overflow-hidden bg-espresso-dark">
+
+      {/* Shimmer skeleton shown while video loads */}
+      <div
+        className="pointer-events-none absolute inset-0 z-10 overflow-hidden transition-opacity duration-700"
+        style={{ opacity: ready ? 0 : 1 }}
+        aria-hidden="true"
+      >
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 50%, transparent 100%)',
+            animation: 'hero-shimmer 1.6s ease-in-out infinite',
+          }}
+        />
+      </div>
+
       <video
         ref={videoRef}
         className="pointer-events-none absolute inset-0 h-full w-full object-cover"
@@ -37,7 +55,6 @@ export default function Hero() {
 
       <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/25 to-black/20" />
 
-      {/* Name across the hero */}
       <div className="absolute inset-0 flex flex-col items-center justify-center px-4">
         <Reveal
           as="h1"
@@ -54,7 +71,6 @@ export default function Hero() {
         </Reveal>
       </div>
 
-      {/* Scroll indicator */}
       <div className="absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3">
         <span className="font-sans text-[9px] uppercase tracking-[0.4em] text-white/55">
           Scroll
