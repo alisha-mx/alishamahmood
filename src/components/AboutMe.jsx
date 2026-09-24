@@ -28,19 +28,22 @@ export default function AboutMe() {
           </Reveal>
 
           <Reveal as="p" delay={0.06} className="mt-8 max-w-xl text-body-lg text-on-surface">
-            I&apos;m a marketer and creative based in the UK. I love travelling,
-            discovering new places, finding interesting details that most people walk
-            straight past and turning them into something worth watching. Whether
-            it&apos;s capturing a photo, filming a reel or piecing together an edit,
-            I&apos;m always thinking about how a story can be told in a way that makes
-            someone stop scrolling!
+            I&apos;m Alisha, a UK-based marketer and creative with a love for travel,
+            visual storytelling and the details that make a place, brand or idea feel
+            memorable. I&apos;m most inspired by fashion, design, new experiences and
+            the kind of content that makes you want to look twice.
           </Reveal>
 
-          <Reveal as="p" delay={0.1} className="mt-6 max-w-xl text-body-md text-on-surface">
-            I&apos;m inspired by great design, art, beautiful spaces and the little
-            moments that often go unnoticed. This is my little corner of the internet
-            where I bring all of those things together, sharing the projects I&apos;m
-            working on, showcasing my talent and everything that keeps me creating!
+          <Reveal as="p" delay={0.1} className="mt-6 max-w-xl text-body-lg text-on-surface">
+            Professionally, I work across social media and marketing, bringing together
+            creative ideas, content and strategy to help brands connect with people in a
+            way that feels current and considered.
+          </Reveal>
+
+          <Reveal as="p" delay={0.13} className="mt-6 max-w-xl text-body-lg text-on-surface">
+            This is a fun little space for the work I&apos;m creating, the projects
+            I&apos;m building and the things that continue to inspire me, both in and
+            outside of work!
           </Reveal>
 
           <Reveal delay={0.14} className="mt-10">

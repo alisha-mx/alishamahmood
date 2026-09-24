@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
 // ─── Update these whenever your status changes ───────────────────────────────
-const STATUS = 'Editing Croatia Travel Film'
-const UPDATED = '2 days ago'
+const STATUS = 'Working On My Personal Channels!'
+const UPDATED = 'Right now'
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function CurrentlyWidget() {

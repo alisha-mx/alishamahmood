@@ -135,14 +135,21 @@ export default function Navbar() {
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="flex h-10 w-10 items-center justify-center md:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 ease-smooth hover:bg-white/15 hover:scale-110 md:hidden"
         >
-          <span className="relative block h-3 w-6">
+          <span className="relative block h-4 w-6">
             <span
               className={[
                 'absolute left-0 block h-px w-6 transition-all duration-300',
                 barColor,
                 open ? 'top-1/2 rotate-45' : 'top-0',
+              ].join(' ')}
+            />
+            <span
+              className={[
+                'absolute left-0 block h-px w-6 transition-all duration-300',
+                barColor,
+                open ? 'opacity-0' : 'top-1/2',
               ].join(' ')}
             />
             <span

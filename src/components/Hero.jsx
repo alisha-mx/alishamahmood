@@ -16,7 +16,6 @@ export default function Hero() {
     }
     const onReady = () => { tryPlay(); setReady(true) }
 
-    // If the video is already buffered (e.g. from cache), fire immediately
     if (v.readyState >= 2) {
       onReady()
     } else {
@@ -25,7 +24,6 @@ export default function Hero() {
     }
     tryPlay()
 
-    // Safety fallback — never leave shimmer blocking the video
     const fallback = setTimeout(() => setReady(true), 4000)
 
     return () => {
@@ -38,17 +36,16 @@ export default function Hero() {
   return (
     <section className="relative h-screen min-h-[620px] overflow-hidden bg-espresso-dark">
 
-      {/* Shimmer skeleton shown while video loads */}
       <div
         className="pointer-events-none absolute inset-0 z-10 overflow-hidden transition-opacity duration-700"
-        style={{ opacity: ready ? 0 : 1 }}
+        style={{ opacity: ready ? 0 : 1, background: 'rgba(251, 243, 204, 0.72)' }}
         aria-hidden="true"
       >
         <div
           className="absolute inset-0"
           style={{
-            background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 50%, transparent 100%)',
-            animation: 'hero-shimmer 1.6s ease-in-out infinite',
+            background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.45) 50%, transparent 100%)',
+            animation: 'hero-shimmer 1.4s ease-in-out infinite',
           }}
         />
       </div>
@@ -66,7 +63,7 @@ export default function Hero() {
 
       <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/25 to-black/20" />
 
-      <div className="absolute inset-0 flex flex-col items-center justify-center px-4">
+      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center px-4">
         <Reveal
           as="h1"
           className="whitespace-nowrap text-center font-brand font-extrabold leading-none tracking-[-0.03em] text-white text-[clamp(2rem,10.5vw,12rem)]"
@@ -82,7 +79,7 @@ export default function Hero() {
         </Reveal>
       </div>
 
-      <div className="absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3">
+      <div className="absolute bottom-10 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-3">
         <span className="font-sans text-[9px] uppercase tracking-[0.4em] text-white/55">
           Scroll
         </span>

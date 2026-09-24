@@ -58,14 +58,14 @@ export default function Contact() {
             </Reveal>
             <Reveal delay={0.15}>
               <motion.div
-                className="mt-10 inline-block"
+                className="mt-10 flex justify-center"
                 style={{ rotate: 2 }}
                 whileHover={{ rotate: 0 }}
                 transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
               >
                 <div className="overflow-hidden rounded-[2rem]" style={{ width: '260px' }}>
                   <img
-                    src={asset('/images/alisha-portrait.jpg')}
+                    src={asset('/images/contact-photo.webp')}
                     alt="Alisha Mahmood"
                     className="w-full aspect-[3/4] object-cover object-top"
                   />
