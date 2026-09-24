@@ -156,7 +156,6 @@ export const projects = [
     carouselItems: [
       { type: "video", src: "/videos/masonry/masonry-4.mp4", alt: "Content Creation" },
       { type: "video", src: "/videos/masonry/masonry-5.mp4", alt: "Content Creation" },
-      { type: "video", src: "/videos/masonry/masonry-6.mp4", alt: "Content Creation" },
       { type: "video", src: "/videos/masonry/masonry-7.mp4", alt: "Content Creation" },
       { type: "video", src: "/videos/masonry/masonry-8.mp4", alt: "Content Creation", landscape: true },
       { type: "video", src: "/videos/masonry/suzo.mp4", alt: "Content Creation" },

@@ -37,10 +37,10 @@ export default function Contact() {
   return (
     <section className="bg-surface-lowest min-h-[calc(100vh-5rem)] flex items-center">
       <div className="container-page w-full py-24 md:py-32">
-        <div className="grid grid-cols-1 items-start gap-16 lg:grid-cols-12">
+        <div className="grid grid-cols-1 items-stretch gap-16 lg:grid-cols-12">
 
           {/* Left: heading + subtitle + portrait */}
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-5 flex flex-col">
             <Reveal>
               <span className="text-label-caps uppercase tracking-[0.2em] text-secondary">
                 Get in touch
@@ -56,27 +56,27 @@ export default function Contact() {
                 Whether it's a collaboration, a new role, or just a chat, I'd love to hear from you.
               </p>
             </Reveal>
-            <Reveal delay={0.15}>
+            <Reveal delay={0.15} className="flex-1 flex flex-col min-h-0">
               <motion.div
-                className="mt-10 flex justify-center"
+                className="mt-10 flex flex-1 justify-center min-h-0"
                 style={{ rotate: 2 }}
                 whileHover={{ rotate: 0 }}
                 transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
               >
-                <div className="overflow-hidden rounded-[2rem]" style={{ width: '260px' }}>
+                <div className="overflow-hidden rounded-[2rem] w-full min-h-0" style={{ maxWidth: '360px' }}>
                   <img
                     src={asset('/images/contact-photo.webp')}
                     alt="Alisha Mahmood"
-                    className="w-full aspect-[3/4] object-cover object-top"
+                    className="w-full h-full object-cover object-top"
                   />
                 </div>
               </motion.div>
             </Reveal>
           </div>
 
-          {/* Right: form — top-aligned with the subtitle on the left */}
-          <div className="lg:col-span-7 lg:pt-[160px]">
-            <div className="rounded-3xl bg-background p-6 md:p-8">
+          {/* Right: form */}
+          <div className="lg:col-span-7 lg:pt-[160px] flex flex-col">
+            <div className="flex-1 rounded-3xl bg-background p-6 md:p-8">
               <AnimatePresence mode="wait">
                 {status === 'success' ? (
                   <motion.div
