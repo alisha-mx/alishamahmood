@@ -102,6 +102,7 @@ function CarouselMedia({ item, active }) {
         <video
           ref={ref}
           src={asset(item.src)}
+          autoPlay
           muted
           loop
           playsInline
