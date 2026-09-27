@@ -36,7 +36,7 @@ function AutoPlayVideo({ src, className }) {
       muted
       loop
       playsInline
-      preload="metadata"
+      preload="auto"
       onLoadedMetadata={(e) => { e.target.muted = true; e.target.play().catch(() => {}) }}
       onCanPlay={(e) => { e.target.muted = true; e.target.play().catch(() => {}) }}
       className={className}
