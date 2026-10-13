@@ -162,6 +162,7 @@ export const projects = [
       { type: "video", src: "/videos/masonry/zhug.mp4", alt: "Content Creation" },
       { type: "video", src: "/videos/masonry/cafe.mp4", alt: "Content Creation", landscape: true },
       { type: "video", src: "/videos/masonry/content-wv1.mp4", alt: "Content Creation" },
+      { type: "video", src: "/videos/masonry/content-wv2.mp4", alt: "Content Creation" },
     ],
     social: { platform: 'tiktok', url: 'https://www.tiktok.com/@alisham._?_r=1&_t=ZN-98eh33Frqfm' },
     nextSlug: "nottshappening",
