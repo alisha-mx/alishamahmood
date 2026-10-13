@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import Reveal from '../Reveal.jsx'
 
 const items = [
@@ -7,7 +7,8 @@ const items = [
   { year: '2024', role: 'MSc Marketing', org: 'University of Nottingham' },
   { year: '2025', role: 'Marketing Intern · Prada Beauty', org: 'Buttermilk Agency' },
   { year: '2025', role: 'Growth Marketing Intern', org: 'MHR' },
-  { year: '2026', role: 'Marketer', org: 'The Team' },
+  { year: '2026', role: 'Marketing Assistant', org: 'The Team' },
+  { year: '2026', role: 'Social Media Specialist', org: 'Tank' },
 ]
 
 const loopItems = [...items, ...items]
@@ -21,6 +22,8 @@ const ONE_LOOP = (ITEM_W + GAP) * items.length // width of one full set in px
 export default function CareerTimeline() {
   const trackRef = useRef(null)
   const drag = useRef({ active: false, startX: 0, startOffset: 0, currentOffset: 0 })
+  const [hovered, setHovered] = useState(false)
+  const [isDragging, setIsDragging] = useState(false)
 
   const getAnimatedOffset = () => {
     const matrix = new DOMMatrix(window.getComputedStyle(trackRef.current).transform)
@@ -42,11 +45,11 @@ export default function CareerTimeline() {
 
   const onMouseDown = (e) => {
     const offset = getAnimatedOffset()
-    // Pause animation and lock to current position
     trackRef.current.style.animation = 'none'
     trackRef.current.style.transform = `translateX(${offset}px)`
     drag.current = { active: true, startX: e.clientX, startOffset: offset, currentOffset: offset }
     trackRef.current.style.cursor = 'grabbing'
+    setIsDragging(true)
   }
 
   const onMouseMove = (e) => {
@@ -62,10 +65,36 @@ export default function CareerTimeline() {
     drag.current.active = false
     trackRef.current.style.cursor = 'grab'
     resumeAnimation(drag.current.currentOffset)
+    setIsDragging(false)
   }
 
   return (
-    <section style={{ background: BG }} className="py-12 overflow-hidden">
+    <section
+      style={{ background: BG }}
+      className="py-12 overflow-hidden relative"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => { setHovered(false); setIsDragging(false) }}
+    >
+      {/* Drag hint tooltip */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '16px',
+          right: '24px',
+          pointerEvents: 'none',
+          transition: 'opacity 0.3s ease, transform 0.3s ease',
+          opacity: hovered && !isDragging ? 1 : 0,
+          transform: hovered && !isDragging ? 'translateY(0)' : 'translateY(-6px)',
+          zIndex: 20,
+        }}
+      >
+        <span
+          style={{ background: 'white', color: BG }}
+          className="px-3 py-1.5 rounded-full text-[0.75rem] font-semibold tracking-wide shadow-md flex items-center gap-1.5"
+        >
+          ✦ drag me!
+        </span>
+      </div>
       <style>{`
         @keyframes timeline-scroll {
           from { transform: translateX(0); }

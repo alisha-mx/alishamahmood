@@ -77,13 +77,21 @@ function CarouselMedia({ item, active }) {
     return () => { v.pause() }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // When navigating away from center, reset to muted
+  // When becoming center: restart from beginning
+  // When leaving center: reset to muted
   useEffect(() => {
-    if (active || item.type !== 'video') return
+    if (item.type !== 'video') return
     const v = ref.current
     if (!v) return
-    v.muted = true
-    setMuted(true)
+    if (active) {
+      v.currentTime = 0
+      v.muted = true
+      setMuted(true)
+      v.play().catch(() => {})
+    } else {
+      v.muted = true
+      setMuted(true)
+    }
   }, [active]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const toggleMute = (e) => {
@@ -107,7 +115,7 @@ function CarouselMedia({ item, active }) {
           loop
           playsInline
           preload="auto"
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: item.landscape ? 'contain' : 'cover' }}
         />
         {active && (
           <button
@@ -364,10 +372,12 @@ export default function CaseStudy() {
               <p className="text-label-caps uppercase tracking-widest text-taupe mb-1">Role</p>
               <p className="text-on-surface font-medium">{project.role}</p>
             </div>
-            <div>
-              <p className="text-label-caps uppercase tracking-widest text-taupe mb-1">Year</p>
-              <p className="text-on-surface font-medium">{project.year}</p>
-            </div>
+            {project.year && (
+              <div>
+                <p className="text-label-caps uppercase tracking-widest text-taupe mb-1">Year</p>
+                <p className="text-on-surface font-medium">{project.year}</p>
+              </div>
+            )}
             {project.website && (
               <div>
                 <p className="text-label-caps uppercase tracking-widest text-taupe mb-1">Website</p>
@@ -397,13 +407,13 @@ export default function CaseStudy() {
                 ...(project.objective ? [{ label: 'Objective', id: 'objective' }] : []),
                 project.type === 'web'
                   ? { label: 'Design Focus', id: 'my-role' }
-                  : { label: 'My Role', id: 'my-role' },
+                  : { label: project.sectionLabels?.myRole ?? 'My Role', id: 'my-role' },
                 ...(project.type !== 'web' ? [{ label: 'The Approach', id: 'approach' }] : []),
                 project.type === 'web'
                   ? { label: 'Visit Page', id: 'results' }
-                  : { label: 'Results', id: 'results' },
+                  : { label: project.sectionLabels?.results ?? 'Results', id: 'results' },
                 ...(project.reflection ? [{ label: 'Reflection', id: 'reflection' }] : []),
-                ...(project.selectedWorkNote || project.carouselItems?.length > 0 ? [{ label: 'Selected Work', id: 'selected-work' }] : []),
+                ...(project.selectedWorkNote || project.carouselItems?.length > 0 ? [{ label: project.sectionLabels?.selectedWork ?? 'Selected Work', id: 'selected-work' }] : []),
               ].map(({ label, id }) => (
                 <a
                   key={id}
@@ -450,10 +460,10 @@ export default function CaseStudy() {
             <Reveal>
               <section id="my-role">
                 <h2 className="font-display text-headline-md italic text-on-surface mb-6">
-                  {project.type === 'web' ? 'Design Focus' : 'My Role'}
+                  {project.type === 'web' ? 'Design Focus' : (project.sectionLabels?.myRole ?? 'My Role')}
                 </h2>
                 <p className="mb-5 text-body-md text-on-surface/60">
-                  {project.type === 'web' ? 'The project covered:' : 'My work includes:'}
+                  {project.type === 'web' ? 'The project covered:' : (project.sectionLabels?.myRoleIntro ?? 'My work includes:')}
                 </p>
                 <ul className="space-y-3">
                   {project.responsibilities.map((r) => (
@@ -526,9 +536,12 @@ export default function CaseStudy() {
                   </div>
                 ) : (
                   <>
-                    <h2 className="font-display text-headline-md italic text-on-surface mb-2">Results</h2>
+                    <h2 className="font-display text-headline-md italic text-on-surface mb-2">{project.sectionLabels?.results ?? 'Results'}</h2>
                     {project.resultsSubtitle && (
                       <p className="text-body-md text-taupe italic mb-8">{project.resultsSubtitle}</p>
+                    )}
+                    {project.resultsBody && (
+                      <p className="text-body-lg text-on-surface/70 leading-relaxed max-w-2xl mb-8">{project.resultsBody}</p>
                     )}
                     <div className="grid grid-cols-4 gap-6">
                       {project.keyResults.map((r) => (
@@ -571,7 +584,7 @@ export default function CaseStudy() {
                 <div className="h-px bg-outline-variant" />
                 <Reveal>
                   <section id="selected-work">
-                    <h2 className="font-display text-headline-md italic text-on-surface mb-4">Selected Work</h2>
+                    <h2 className="font-display text-headline-md italic text-on-surface mb-4">{project.sectionLabels?.selectedWork ?? 'Selected Work'}</h2>
                     {project.selectedWorkNote && (
                       <p className="text-body-lg text-on-surface/70 leading-relaxed max-w-2xl mb-10">
                         {project.selectedWorkNote}

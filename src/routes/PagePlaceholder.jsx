@@ -4,9 +4,9 @@ import Reveal from '../components/Reveal.jsx'
 // Shared scaffold for the not-yet-built pages so routing/layout works.
 export default function PagePlaceholder({ label, title }) {
   useEffect(() => {
-    document.title = `${title} — Amoire Social`
+    document.title = `${title} | Amoire Social`
     return () => {
-      document.title = 'Amoire Social — Creative Direction & Social Strategy'
+      document.title = 'Amoire Social | Creative Direction & Social Strategy'
     }
   }, [title])
 

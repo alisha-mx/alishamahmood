@@ -205,6 +205,55 @@ export const projects = [
       { type: "video", src: "/videos/notts/notts-v5.mp4", alt: "NottsHappening" },
     ],
     social: { platform: 'instagram', url: 'https://www.instagram.com/nottshappening/' },
+    nextSlug: "brand-content",
+  },
+  {
+    slug: "brand-content",
+    featured: false,
+    title: "Social Media Management",
+    organisation: "Freelance Services",
+    type: "freelance",
+    typeLabel: "Freelance Project",
+    categories: ["Short-Form Video", "Content Creation", "Social Content"],
+    year: null,
+    role: "Social Media Manager & Content Creator",
+    shortDescription:
+      "Freelance social media management and content support for stays, hospitality and lifestyle brands.",
+    thumbnail: asset("/images/smm-thumbnail.webp"),
+    heroImage: asset("/images/smm-hero.webp"),
+    gallery: [],
+    keyResults: [],
+    overview:
+      "Freelance social media management and content support for stays, hospitality and lifestyle brands. From creating content that captures the feeling of a space to helping build a consistent social presence, the aim is to make brands feel considered, current and worth engaging with.\n\nWhether it is a boutique hotel, Airbnb, restaurant or experience-led business, every idea starts with what makes it different and how that can translate naturally online.",
+    objective: null,
+    responsibilities: [
+      "Social media strategy and content planning",
+      "Filming and editing short-form video content",
+      "Photography and creative direction",
+      "Content for Instagram, TikTok, websites and listings",
+      "Caption writing and content scheduling",
+      "Community management",
+      "Monthly reporting and content recommendations",
+    ],
+    approach:
+      "The best social content should make people feel something, whether that is calm, excitement, curiosity or a genuine urge to visit. I focus on creating content that feels social-first and visually strong, without feeling overly polished or like a traditional advert.\n\nEverything is shaped around the brand, audience and platform, balancing creative storytelling with content that has a clear purpose.",
+    sectionLabels: {
+      myRole: "Services",
+      myRoleIntro: "Support can include:",
+      results: "How We Can Work Together",
+      selectedWork: "Creative Examples",
+    },
+    reflection: null,
+    resultsBody:
+      "Support can be tailored around what your brand needs, from a one-off content shoot to ongoing social media management. This could look like creating a bank of Reels and photography for a new launch, refreshing the social presence of a stay or venue, or planning and managing monthly content to help build an engaged audience over time.",
+    selectedWorkNote:
+      "A selection of personal work and sample content that reflects my filming, editing and creative style across travel, lifestyle, food and hospitality-inspired content.",
+    carouselItems: [
+      { type: "video", src: asset("/videos/smm/smm-1.mp4") },
+      { type: "video", src: asset("/videos/smm/smm-2.mp4"), landscape: true },
+      { type: "video", src: asset("/videos/smm/smm-3.mp4") },
+      { type: "video", src: asset("/videos/smm/smm-4.mp4") },
+    ],
     nextSlug: "home-by-nox",
   },
   {

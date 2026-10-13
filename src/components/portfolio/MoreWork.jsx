@@ -6,7 +6,7 @@ import { asset } from '../../utils/asset.js'
 
 const FILTERS = [
   { label: 'Professional Work', value: 'professional' },
-  { label: 'Content Creation', value: 'content' },
+  { label: 'Personal Content', value: 'content' },
   { label: 'Freelance', value: 'freelance' },
   { label: 'Web Design', value: 'web' },
 ]
@@ -45,7 +45,7 @@ const PROJECTS = {
   ],
   content: [
     {
-      title: 'Content Creation',
+      title: 'Personal Content',
       type: 'personal',
       typeLabel: 'Personal Project',
       categories: ['Content Creation', 'Video', 'Photography'],
@@ -67,6 +67,17 @@ const PROJECTS = {
       year: '2026 – Present',
       thumbnail: asset('/images/nottshappening.jpeg'),
       link: '/portfolio/nottshappening',
+    },
+    {
+      title: 'Social Media Management',
+      type: 'freelance',
+      typeLabel: 'Freelance Project',
+      categories: ['Short-Form Video', 'Content Creation', 'Social Content'],
+      shortDescription:
+        'Freelance social media management and content support for stays, hospitality and lifestyle brands.',
+      year: 'Available for Projects',
+      thumbnail: asset('/images/smm-thumbnail.webp'),
+      link: '/portfolio/brand-content',
     },
   ],
   web: [
@@ -126,8 +137,9 @@ function SmallCard({ item }) {
           {/* Text */}
           <div className="flex flex-1 flex-col p-5">
             <div className="flex flex-wrap gap-1.5 mb-2">
-              {item.categories.map((cat) => (
-                <span key={cat} className="text-[10px] uppercase tracking-widest text-taupe">
+              {item.categories.map((cat, i) => (
+                <span key={cat} className="flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-taupe">
+                  {i > 0 && <span className="text-taupe/40">|</span>}
                   {cat}
                 </span>
               ))}

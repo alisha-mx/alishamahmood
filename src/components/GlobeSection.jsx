@@ -154,7 +154,7 @@ const onGlobeReady = useCallback(() => {
               Places I've <span className="italic">Explored.</span>
             </Reveal>
             <Reveal as="p" delay={0.05} className="mt-5 text-body-lg text-on-surface/55">
-              {places.length} destinations and counting. Drag to spin and explore some of the moments I've captured along the way!
+              {places.length} destinations and counting. Drag to spin and hover over the pins to explore some of the moments I've captured along the way!
             </Reveal>
           </div>
 
@@ -223,9 +223,8 @@ const onGlobeReady = useCallback(() => {
                   exit={{ opacity: 0, scale: 0.8 }}
                   transition={{ duration: 0.5, y: { duration: 2, repeat: Infinity, ease: 'easeInOut' } }}
                 >
-                  <div className="flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 shadow-soft backdrop-blur-sm border-2 border-buttermilk">
-                    <span className="text-base">✋</span>
-                    <span className="font-display text-sm italic text-on-surface">drag & zoom!</span>
+                  <div className="flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 shadow-md" style={{ color: '#B0A08C' }}>
+                    <span className="text-[0.75rem] font-semibold tracking-wide">✦ drag & zoom!</span>
                   </div>
                 </motion.div>
               )}

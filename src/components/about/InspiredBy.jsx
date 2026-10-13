@@ -47,7 +47,7 @@ export default function InspiredBy() {
             Currently <span className="italic">Inspired</span> By.
           </Reveal>
           <Reveal as="p" delay={0.05} className="mt-4 text-body-lg text-on-surface/55">
-            These aren't projects — they're the ideas, places and little moments that constantly shape the way I create.
+            These aren't projects, they're the ideas, places and little moments that constantly shape the way I create.
           </Reveal>
         </div>
 
