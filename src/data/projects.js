@@ -1,6 +1,7 @@
 // Alisha's masonry gallery — mixed order so images and videos aren't all grouped together.
 import { asset } from '../utils/asset.js'
 export const gallery = [
+  { type: 'video', src: asset('/videos/masonry/ez-ramyeon.mp4'), alt: 'EZ Ramyeon' },
   { type: 'image', src: asset('/images/masonry/masonry-1.jpg'), alt: 'Content shoot' },
   { type: 'video', src: asset('/videos/masonry/masonry-1.mp4'), alt: 'Video clip' },
   { type: 'image', src: asset('/images/masonry/masonry-2.jpg'), alt: 'Content shoot' },
