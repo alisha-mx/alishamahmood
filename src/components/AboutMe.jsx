@@ -11,7 +11,7 @@ export default function AboutMe() {
           <div className="overflow-hidden rounded-4xl bg-surface-container shadow-soft">
             <img
               src={asset('/images/alisha-portrait.jpg')}
-              alt="Alisha Mahmood"
+              alt="Alisha"
               loading="lazy"
               className="aspect-[4/5] h-full w-full object-cover"
             />

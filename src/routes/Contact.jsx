@@ -66,7 +66,7 @@ export default function Contact() {
                 <div className="overflow-hidden rounded-[2rem] w-full min-h-0" style={{ maxWidth: '360px' }}>
                   <img
                     src={asset('/images/contact-photo.webp')}
-                    alt="Alisha Mahmood"
+                    alt="Alisha"
                     className="w-full h-full object-cover object-top"
                   />
                 </div>

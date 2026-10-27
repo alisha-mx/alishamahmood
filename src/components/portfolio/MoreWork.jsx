@@ -91,6 +91,7 @@ const PROJECTS = {
       year: '2026',
       thumbnail: asset('/images/home-by-nox.jpeg'),
       link: '/portfolio/home-by-nox',
+      hidden: true,
     },
     {
       title: 'Shamrock Social',
@@ -102,6 +103,7 @@ const PROJECTS = {
       year: '2026',
       thumbnail: asset('/images/shamrock-social.webp'),
       link: '/portfolio/shamrock-social',
+      hidden: true,
     },
   ],
 }
@@ -171,16 +173,16 @@ export default function MoreWork() {
 
   useEffect(() => {
     const f = searchParams.get('filter')
-    if (f && PROJECTS[f]) {
+    if (f && PROJECTS[f]?.some((p) => !p.hidden)) {
       setActive(f)
       setTimeout(() => {
         document.getElementById('explore-my-work')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
       }, 120)
     }
   }, [searchParams])
-  const items = active === 'all'
+  const items = (active === 'all'
     ? Object.values(PROJECTS).flat()
-    : PROJECTS[active]
+    : PROJECTS[active] ?? []).filter((p) => !p.hidden)
 
   return (
     <section id="explore-my-work" className="bg-surface-lowest pt-20 pb-10 md:pt-28 md:pb-14">
@@ -196,7 +198,7 @@ export default function MoreWork() {
           {/* Filter pills — horizontally scrollable on mobile */}
           <Reveal delay={0.05}>
             <div className="flex flex-wrap gap-2">
-              {FILTERS.map((f) => (
+              {FILTERS.filter((f) => PROJECTS[f.value]?.some((p) => !p.hidden)).map((f) => (
                 <button
                   key={f.value}
                   onClick={() => setActive(active === f.value ? 'all' : f.value)}

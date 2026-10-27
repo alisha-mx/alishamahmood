@@ -62,7 +62,7 @@ export default function Footer() {
 
         <div className="mt-16 border-t border-outline-variant pt-8">
           <p className="text-center text-label-caps uppercase tracking-[0.1em] text-on-surface">
-            © 2026 ALISHA MAHMOOD. ALL RIGHTS RESERVED.
+            © 2026 ALISHA. ALL RIGHTS RESERVED.
           </p>
         </div>
       </div>

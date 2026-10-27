@@ -6,11 +6,13 @@ const projects = [
   {
     n: '01',
     title: 'Home by Nox',
+    hidden: true,
     copy: 'A visual website concept focused on warm design, storytelling and creating a stronger digital presence for a short-stay rental brand.',
   },
   {
     n: '02',
     title: 'Shamrock Social',
+    hidden: true,
     copy: 'A playful web concept exploring hospitality, events and interactive brand moments for an Irish bar.',
   },
   {
@@ -32,7 +34,7 @@ export default function LovedProjects() {
         </Reveal>
 
         <div className="mt-16 grid grid-cols-1 gap-5 md:grid-cols-3">
-          {projects.map((p, i) => (
+          {projects.filter((p) => !p.hidden).map((p, i) => (
             <Reveal key={p.n} delay={i * 0.07}>
               <Link to="/portfolio" className="block h-full group">
                 <motion.div

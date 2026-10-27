@@ -24,6 +24,6 @@ export function LinkedInIcon({ className = '' }) {
 
 export const socials = [
   { label: 'Email', href: '/contact', Icon: EmailIcon, internal: true, iconClass: 'h-[22px] w-[22px]' },
-  { label: 'TikTok', href: 'https://www.tiktok.com/@alisham._?_r=1&_t=ZN-98eh33Frqfm', Icon: TikTokIcon },
+  { label: 'TikTok', href: 'https://www.tiktok.com/@alisha.m__?_r=1&_t=ZN-9Aunij7YwC6', Icon: TikTokIcon },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/alisha12/', Icon: LinkedInIcon },
 ]

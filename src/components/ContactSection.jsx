@@ -56,7 +56,7 @@ export default function ContactSection() {
               <div className="overflow-hidden rounded-[2.5rem]" style={{ width: '300px' }}>
                 <img
                   src={asset('/images/contact-photo.webp')}
-                  alt="Alisha Mahmood"
+                  alt="Alisha"
                   className="w-full aspect-[3/4] object-cover object-top"
                 />
               </div>

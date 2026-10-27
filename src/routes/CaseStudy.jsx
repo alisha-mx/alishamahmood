@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { useParams, Link, Navigate } from 'react-router-dom'
 import Reveal from '../components/Reveal.jsx'
-import { projects } from '../data/portfolioProjects.js'
+import { visibleProjects, nextVisibleProject } from '../data/portfolioProjects.js'
 import { asset } from '../utils/asset.js'
 
 function HeroVideo({ src, startTime = 0 }) {
@@ -316,9 +316,9 @@ function Stat({ metric, label, note }) {
 
 export default function CaseStudy() {
   const { slug } = useParams()
-  const project = projects.find((p) => p.slug === slug)
-  const nextProject = project ? projects.find((p) => p.slug === project.nextSlug) : null
-  const prevProject = project ? projects.find((p) => p.nextSlug === project.slug) : null
+  const project = visibleProjects.find((p) => p.slug === slug)
+  const nextProject = project ? nextVisibleProject(project) : null
+  const prevProject = project ? visibleProjects.find((p) => nextVisibleProject(p)?.slug === project.slug) : null
 
   if (!project) return <Navigate to="/portfolio" replace />
 

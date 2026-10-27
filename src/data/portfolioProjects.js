@@ -165,7 +165,7 @@ export const projects = [
       { type: "video", src: "/videos/masonry/content-wv2.mp4", alt: "Content Creation" },
       { type: "video", src: "/videos/masonry/ez-ramyeon.mp4", alt: "Content Creation", landscape: true },
     ],
-    social: { platform: 'tiktok', url: 'https://www.tiktok.com/@alisham._?_r=1&_t=ZN-98eh33Frqfm' },
+    social: { platform: 'tiktok', url: 'https://www.tiktok.com/@alisha.m__?_r=1&_t=ZN-9Aunij7YwC6' },
     nextSlug: "nottshappening",
   },
   {
@@ -260,6 +260,7 @@ export const projects = [
   },
   {
     slug: "home-by-nox",
+    hidden: true,
     featured: false,
     title: "Home by Nox",
     organisation: "Personal Project",
@@ -294,6 +295,7 @@ export const projects = [
   },
   {
     slug: "shamrock-social",
+    hidden: true,
     featured: false,
     title: "Shamrock Social",
     organisation: "Freelance Project",
@@ -327,6 +329,18 @@ export const projects = [
     nextSlug: "cambridge-half-marathon",
   },
 ]
+
+// Projects marked `hidden: true` stay in the data but aren't shown anywhere on the site.
+export const visibleProjects = projects.filter((p) => !p.hidden)
+
+// Follows nextSlug, skipping hidden projects.
+export function nextVisibleProject(project) {
+  let next = projects.find((p) => p.slug === project.nextSlug)
+  while (next && next.hidden && next.slug !== project.slug) {
+    next = projects.find((p) => p.slug === next.nextSlug)
+  }
+  return next && !next.hidden ? next : null
+}
 
 export const moreWorkItems = [
   {

@@ -68,7 +68,7 @@ export default function Hero() {
           as="h1"
           className="whitespace-nowrap text-center font-brand font-extrabold leading-none tracking-[-0.03em] text-white text-[clamp(2rem,10.5vw,12rem)]"
         >
-          Alisha Mahmood
+          ALISHA
         </Reveal>
         <Reveal
           as="p"

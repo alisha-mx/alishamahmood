@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Reveal from '../Reveal.jsx'
-import { projects } from '../../data/portfolioProjects.js'
+import { visibleProjects as projects } from '../../data/portfolioProjects.js'
 
 const TYPE_STYLES = {
   professional: 'bg-on-surface text-white',
@@ -115,14 +115,18 @@ export default function FeaturedProjects() {
           </Reveal>
 
           {/* Card 5 — medium */}
-          <Reveal className="lg:col-span-5" delay={0.12}>
-            <FeaturedCard project={p5} aspectClass="aspect-[4/3]" />
-          </Reveal>
+          {p5 && (
+            <Reveal className={p6 ? 'lg:col-span-5' : 'md:col-span-2 lg:col-span-12'} delay={0.12}>
+              <FeaturedCard project={p5} aspectClass={p6 ? 'aspect-[4/3]' : 'aspect-[4/3] lg:aspect-[16/6]'} />
+            </Reveal>
+          )}
 
           {/* Card 6 — medium landscape */}
-          <Reveal className="lg:col-span-7" delay={0.14}>
-            <FeaturedCard project={p6} aspectClass="aspect-[4/3]" />
-          </Reveal>
+          {p6 && (
+            <Reveal className="lg:col-span-7" delay={0.14}>
+              <FeaturedCard project={p6} aspectClass="aspect-[4/3]" />
+            </Reveal>
+          )}
 
         </div>
       </div>
