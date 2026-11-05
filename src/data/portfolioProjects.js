@@ -211,6 +211,7 @@ export const projects = [
   },
   {
     slug: "brand-content",
+    hidden: true,
     featured: false,
     title: "Social Media Management",
     organisation: "Freelance Services",

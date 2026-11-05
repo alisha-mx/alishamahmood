@@ -78,6 +78,7 @@ const PROJECTS = {
       year: 'Available for Projects',
       thumbnail: asset('/images/smm-thumbnail.webp'),
       link: '/portfolio/brand-content',
+      hidden: true,
     },
   ],
   web: [
